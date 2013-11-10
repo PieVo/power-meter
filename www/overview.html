@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="refresh" content="600" >
+	<title>demo</title>
+	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+	<script src="http://code.highcharts.com/stock/highstock.js"></script>
+	<script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="/css/result-light.css">
+	<style type='text/css'></style>
+	<script type='text/javascript'>
+	$(function(){
+
+		var options = { 
+			chart: {
+				renderTo: 'container',
+				type: 'line' 
+			}, 
+			rangeSelector : {
+				selected : 1
+			},
+			xAxis: { 
+				title: {
+					text: 'date' 
+				},
+				labels: {
+					formatter: function() {
+						return Highcharts.dateFormat('%e. %b %Y', this.value); 
+					}
+				}
+			},
+			yAxis: {
+				min: 0, 
+				title: { 
+					text: 'Watt' } 
+			}, 
+			title : {
+					text : 'Power usage overview'
+			},
+			series: [] 
+		};
+
+		$.get('detail.csv', function(data) {
+			var graph_data = [];
+			var series = { 
+				name: 'Power',
+				data: graph_data,
+				//showInLegend: false,
+			};
+			var lines = data.split('\n');
+			$.each(lines, function(lineNo, line) {
+				var items = line.split(',');
+				graph_data.push([parseInt(items[0]), parseFloat(items[1])]);
+			});
+			options.series.push(series);
+			var chart = new Highcharts.StockChart(options);
+		});
+
+	});
+	</script>
+</head>
+<body>
+	<div id="container"></div> 
+</body>
+</html>

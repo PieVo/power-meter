@@ -1,0 +1,24 @@
+phpSysInfo 3.1.1
+
+ - [ADD] SolusOS, Deepin and antiX to detected distros
+ - [ADD] Simplified Chinese translation
+
+ - [UPD] jQuery 1.9.1
+
+phpSysInfo 3.1.0
+
+ - [NEW] Configuration moved from config.php and subdirs of "plugins" to one file phpsysinfo.ini
+
+ - [ADD] Turbolinux, Oracle Linux, CloudLinux, PCLinuxOS, StartOS, Trisquel, CRUX, Slax, Pear, Android, Zorin and elementary OS to detected distros
+ - [ADD] Show System Language and Code Page on Linux, Haiku and WINNT
+ - [ADD] Minor support of ReactOS
+ - [ADD] apcupsd-cgi support (thanks to duhast)
+
+ - [UPD] Plugin ipmi renamed to IPMIInfo and Update-Notifier to UpdateNotifier (to avoid name conflicts)
+ - [UPD] Case-insensitive for most of parameters
+ - [UPD] Detection of Mac OS X and Linux distribution
+ - [UPD] CPU detection on Mac OS X
+ 
+ - [FIX] Fixed UTF8 encoding for Linux
+ - [FIX] SMART plugin doesn't display for some results
+ - [FIX] Incorrect display of mountpoint on Mac OS X
