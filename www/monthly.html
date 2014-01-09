@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>demo</title>
+	<script type='text/javascript' src='js/jquery.min.js'></script>
+	<script src="js/highstock.js"></script>
+	<script src="js/exporting.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="/css/result-light.css">
+	<style type='text/css'></style>
+	<script type='text/javascript'>
+	$(function(){
+		var options = {
+			chart: {
+				renderTo: 'container',
+				defaultSeriesType: 'column'
+			},
+			title: {
+				text: 'Monthly Power Usage'
+			},
+			xAxis: {
+				type: 'datetime',
+				minTickInterval: 30 * 24 * 3600 * 1000
+			},
+			yAxis: {
+				title: {
+					text: 'kWh'
+				}
+			},
+			series: [] 
+		};
+
+		$.get('daily.csv', function(data) {
+			var graph_data = [];
+			var series = { 
+				name: 'Power',
+				data: graph_data,
+				showInLegend: false,
+				dataGrouping: {
+					approximation: "sum",
+ 					enabled: true,
+ 					forced: true,
+ 					units: [['month',[1]]]
+				}
+			};
+			var lines = data.split('\n');
+			$.each(lines, function(lineNo, line) {
+				var items = line.split(',');
+				graph_data.push([parseInt(items[0]), parseFloat(items[1])]);
+			});
+			options.series.push(series);
+			var chart = new Highcharts.Chart(options);
+		});
+		
+	});
+	</script>
+</head>
+	<body>
+		<div id="container" style="height: 500px; min-width: 500px"></div>
+	</body>
+</html>
